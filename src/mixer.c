@@ -94,7 +94,6 @@ libpcmseq__stereo_mixer__mix(libpcmseq__stereo_mixer_t *mixer,
 
   for (size_t i = 0; i < out_frames_num; i++) {
     libpcmseq__sample_float_t left = 0.0f, right = 0.0f;
-    size_t total_voices = 0;
 
     // TODO: Optimize to not go over the entire list every time.
     for (libpcmseq__stereo_voice_node_t *voice_node = mixer->voices;
@@ -107,18 +106,12 @@ libpcmseq__stereo_mixer__mix(libpcmseq__stereo_mixer_t *mixer,
 
       left += voice->clip->frames[voice->next_frame_index].left;
       right += voice->clip->frames[voice->next_frame_index].right;
-      total_voices++;
 
       // TODO: Optimize to advance all voices only once after mixing all frames.
       voice->next_frame_index++;
       if (voice->loop) {
         voice->next_frame_index %= voice->clip->frames_num;
       }
-    }
-
-    if (total_voices > 0) {
-      left /= total_voices;
-      right /= total_voices;
     }
 
     out_frames[i].left = mixer->float_to_sample_fn(left);
