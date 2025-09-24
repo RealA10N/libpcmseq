@@ -1,13 +1,16 @@
 #include <libpcmseq/mixer.h>
+
 #include <stdlib.h>
 
-libpcmseq__err_t
-libpcmseq__stereo_mixer__init(libpcmseq__stereo_mixer_t *mixer) {
-  if (NULL == mixer) {
+libpcmseq__err_t libpcmseq__stereo_mixer__init(
+    libpcmseq__stereo_mixer_t *mixer,
+    libpcmseq__sample_float_to_sample_fn_t float_to_sample_fn) {
+  if (NULL == mixer || NULL == float_to_sample_fn) {
     return LIBPCMSEQ__ERR_INVALID_ARG;
   }
 
   mixer->voices = NULL;
+  mixer->float_to_sample_fn = float_to_sample_fn;
   return LIBPCMSEQ__OK;
 }
 

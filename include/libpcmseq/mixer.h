@@ -12,9 +12,12 @@ typedef struct {
  * @brief Initializes a mixer.
  *
  * @param[in,out] mixer Pointer to the mixer to initialize.
+ * @param[in] float_to_sample_fn Function to convert float samples to the
+ * desired sample format.
  */
-libpcmseq__err_t
-libpcmseq__stereo_mixer__init(libpcmseq__stereo_mixer_t *mixer);
+libpcmseq__err_t libpcmseq__stereo_mixer__init(
+    libpcmseq__stereo_mixer_t *mixer,
+    libpcmseq__sample_float_to_sample_fn_t float_to_sample_fn);
 
 /**
  * @brief Deletes a mixer and frees all associated resources (voices).
