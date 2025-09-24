@@ -8,6 +8,7 @@ typedef enum {
   LIBPCMSEQ__FAILURE = 1,
   LIBPCMSEQ__ERR_INVALID_ARG,
   LIBPCMSEQ__ERR_NO_MEMORY,
+  LIBPCMSEQ__ERR_NOT_FOUND,
 } libpcmseq__err_t;
 
 typedef int16_t libpcmseq__sample_t;

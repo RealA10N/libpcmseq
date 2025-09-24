@@ -28,6 +28,7 @@ void libpcmseq__stereo_mixer__del(libpcmseq__stereo_mixer_t *mixer) {
 
 libpcmseq__err_t
 libpcmseq__stereo_mixer__add_voice(libpcmseq__stereo_mixer_t *mixer,
+                                   libpcmseq__stereo_voice_id_t *voice_id,
                                    libpcmseq__stereo_voice_t voice) {
   if (NULL == mixer || NULL == voice.clip) {
     return LIBPCMSEQ__ERR_INVALID_ARG;
@@ -46,7 +47,37 @@ libpcmseq__stereo_mixer__add_voice(libpcmseq__stereo_mixer_t *mixer,
 
   mixer->voices = voice_node;
 
+  if (NULL != voice_id) {
+    *voice_id = (libpcmseq__stereo_voice_id_t)voice_node;
+  }
+
   return LIBPCMSEQ__OK;
+}
+
+libpcmseq__err_t
+libpcmseq__stereo_mixer__remove_voice(libpcmseq__stereo_mixer_t *mixer,
+                                      libpcmseq__stereo_voice_id_t voice_id) {
+  if (NULL == mixer || NULL == voice_id) {
+    return LIBPCMSEQ__ERR_INVALID_ARG;
+  }
+
+  libpcmseq__stereo_voice_node_t *prev = NULL;
+  libpcmseq__stereo_voice_node_t *current = mixer->voices;
+  while (NULL != current) {
+    if (current == (libpcmseq__stereo_voice_node_t *)voice_id) {
+      if (NULL == prev) {
+        mixer->voices = current->next;
+      } else {
+        prev->next = current->next;
+      }
+      free(current);
+      return LIBPCMSEQ__OK;
+    }
+    prev = current;
+    current = current->next;
+  }
+
+  return LIBPCMSEQ__ERR_NOT_FOUND;
 }
 
 libpcmseq__err_t

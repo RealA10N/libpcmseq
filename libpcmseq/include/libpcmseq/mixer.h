@@ -4,10 +4,6 @@
 #include <libpcmseq/voice.h>
 
 typedef struct {
-  libpcmseq__stereo_voice_t voice;
-  libpcmseq__stereo_voice_node_t *next;
-} libpcmseq__stereo_voice_node_t;
-typedef struct {
   libpcmseq__stereo_voice_node_t *voices;
   libpcmseq__sample_float_to_sample_fn_t float_to_sample_fn;
 } libpcmseq__stereo_mixer_t;
@@ -32,11 +28,25 @@ void libpcmseq__stereo_mixer__del(libpcmseq__stereo_mixer_t *mixer);
  * which will be freed when the mixer is deleted.
  *
  * @param[in,out] mixer Pointer to the mixer.
+ * @param[out] voice_id A unique ID of the voice, that can be used afterwards to
+ *  modify and control it (e.g., stop it).
  * @param[in] voice The voice to add.
  * @return LIBPCMSEQ__OK on success, or an error code on failure.
  */
 libpcmseq__err_t
 libpcmseq__stereo_mixer__add_voice(libpcmseq__stereo_mixer_t *mixer,
+                                   libpcmseq__stereo_voice_id_t *voice_id,
                                    libpcmseq__stereo_voice_t voice);
+
+/**
+ * @brief Removes a voice from the mixer, and deallocates its resources.
+ *
+ * @param[in,out] mixer Pointer to the mixer.
+ * @param[in] voice_id The ID of the voice to remove.
+ * @return LIBPCMSEQ__OK on success, or an error code on failure.
+ */
+libpcmseq__err_t
+libpcmseq__stereo_mixer__remove_voice(libpcmseq__stereo_mixer_t *mixer,
+                                      libpcmseq__stereo_voice_id_t voice_id);
 
 #endif // LIBPCMSEQ_MIXER_H
