@@ -25,9 +25,8 @@ void libpcmseq__mixer__del(libpcmseq__mixer_t *mixer) {
   return LIBPCMSEQ__OK;
 }
 
-libpcmseq__err_t
-libpcmseq__mixer__append_voice(libpcmseq__mixer_t *mixer,
-                               libpcmseq__stereo_voice_t voice) {
+libpcmseq__err_t libpcmseq__mixer__add_voice(libpcmseq__mixer_t *mixer,
+                                             libpcmseq__stereo_voice_t voice) {
   if (NULL == mixer || NULL == voice.clip) {
     return LIBPCMSEQ__ERR_INVALID_ARG;
   }
