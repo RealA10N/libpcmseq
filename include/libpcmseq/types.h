@@ -11,13 +11,7 @@ typedef enum {
   LIBPCMSEQ__ERR_NOT_FOUND,
 } libpcmseq__err_t;
 
-typedef int16_t libpcmseq__sample_t;
 typedef int16_t libpcmseq__amplitude_t;
 typedef uint32_t libpcmseq__rate_hz_t;
-
-typedef float libpcmseq__sample_float_t;
-
-typedef libpcmseq__sample_t (*libpcmseq__sample_float_to_sample_fn_t)(
-    libpcmseq__sample_float_t);
 
 #endif // LIBPCMSEQ_TYPES_H

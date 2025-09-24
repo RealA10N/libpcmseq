@@ -1,6 +1,7 @@
 #ifndef LIBPCMSEQ_CLIP_H
 #define LIBPCMSEQ_CLIP_H
 
+#include <libpcmseq/sample.h>
 #include <libpcmseq/types.h>
 
 #include <stddef.h>

@@ -1,6 +1,7 @@
 #ifndef LIBPCMSEQ_MIXER_H
 #define LIBPCMSEQ_MIXER_H
 
+#include <libpcmseq/sample.h>
 #include <libpcmseq/voice.h>
 
 typedef struct {
