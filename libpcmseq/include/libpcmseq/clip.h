@@ -16,7 +16,6 @@ typedef struct {
 typedef struct {
   libpcmseq__stereo_frame_t *frames;
   size_t frames_num;
-  libpcmseq__rate_hz_t sample_rate;
 } libpcmseq__stereo_clip_t;
 
 /**
@@ -27,8 +26,7 @@ typedef struct {
  * @param[in] sample_rate Sample rate of the clip.
  */
 libpcmseq__err_t libpcmseq__stereo_clip__init(libpcmseq__stereo_clip_t *clip,
-                                              size_t frames_num,
-                                              libpcmseq__rate_hz_t sample_rate);
+                                              size_t frames_num);
 
 /**
  * @brief Deallocates memory used by the clip and resets its fields.

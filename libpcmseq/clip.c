@@ -2,9 +2,8 @@
 
 #include <stddef.h>
 
-libpcmseq__err_t
-libpcmseq__stereo_clip__init(libpcmseq__stereo_clip_t *clip, size_t frames_num,
-                             libpcmseq__rate_hz_t sample_rate) {
+libpcmseq__err_t libpcmseq__stereo_clip__init(libpcmseq__stereo_clip_t *clip,
+                                              size_t frames_num) {
   if (NULL == clip || 0 == frames_num) {
     return LIBPCMSEQ__ERR_INVALID_ARG;
   }
@@ -15,7 +14,6 @@ libpcmseq__stereo_clip__init(libpcmseq__stereo_clip_t *clip, size_t frames_num,
   }
 
   clip->frames_num = frames_num;
-  clip->sample_rate = sample_rate;
 
   return LIBPCMSEQ__OK;
 }
@@ -28,7 +26,6 @@ void libpcmseq__stereo_clip__del(libpcmseq__stereo_clip_t *clip) {
   free(clip->frames);
   clip->frames = NULL;
   clip->frames_num = 0;
-  clip->sample_rate = 0;
 }
 
 libpcmseq__err_t libpcmseq__stereo_clip__init_square_wave(
@@ -42,7 +39,7 @@ libpcmseq__err_t libpcmseq__stereo_clip__init_square_wave(
   }
 
   const size_t frames_num = sample_rate / freq_hz;
-  err = libpcmseq__stereo_clip__init(clip, frames_num, sample_rate);
+  err = libpcmseq__stereo_clip__init(clip, frames_num);
   if (LIBPCMSEQ__OK != err) {
     goto cleanup;
   }
