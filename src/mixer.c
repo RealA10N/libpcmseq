@@ -87,7 +87,7 @@ libpcmseq__err_t
 libpcmseq__stereo_mixer__mix(libpcmseq__stereo_mixer_t *mixer,
                              libpcmseq__stereo_frame_t *out_frames,
                              size_t out_frames_num) {
-  if (NULL == mixer || NULL != mixer->float_to_sample_fn ||
+  if (NULL == mixer || NULL == mixer->float_to_sample_fn ||
       NULL == out_frames || 0 == out_frames_num) {
     return LIBPCMSEQ__ERR_INVALID_ARG;
   }
