@@ -1,4 +1,5 @@
 #include <libpcmseq/mixer.h>
+#include <stdlib.h>
 
 libpcmseq__err_t
 libpcmseq__stereo_mixer__init(libpcmseq__stereo_mixer_t *mixer) {
@@ -23,7 +24,6 @@ void libpcmseq__stereo_mixer__del(libpcmseq__stereo_mixer_t *mixer) {
   }
 
   mixer->voices = NULL;
-  return LIBPCMSEQ__OK;
 }
 
 libpcmseq__err_t

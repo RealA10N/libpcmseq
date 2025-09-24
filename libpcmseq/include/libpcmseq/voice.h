@@ -15,9 +15,9 @@ typedef struct {
   bool loop;
 } libpcmseq__stereo_voice_t;
 
-typedef struct {
+typedef struct libpcmseq__stereo_voice_node_t {
   libpcmseq__stereo_voice_t voice;
-  libpcmseq__stereo_voice_node_t *next;
+  struct libpcmseq__stereo_voice_node_t *next;
 } libpcmseq__stereo_voice_node_t;
 
 // Internally, a voice ID is a pointer to the voice node in the mixer.

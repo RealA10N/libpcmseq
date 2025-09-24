@@ -1,6 +1,7 @@
 #include <libpcmseq/clip.h>
 
 #include <stddef.h>
+#include <stdlib.h>
 
 libpcmseq__err_t libpcmseq__stereo_clip__init(libpcmseq__stereo_clip_t *clip,
                                               size_t frames_num) {
