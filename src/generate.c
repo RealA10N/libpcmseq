@@ -2,7 +2,9 @@
 
 libpcm__err_t
 libpcm__generate_context__validate(const libpcm__generate_context_t *ctx) {
-  if (NULL == ctx || NULL == ctx->buffer.samples || ctx->buffer.size == 0) {
+  if (NULL == ctx || 0 == ctx->sample_rate || 0 == ctx->channels ||
+      NULL == ctx->float_to_sample || NULL == ctx->buffer.samples ||
+      0 == ctx->buffer.len) {
     return LIBPCM__ERR_INVALID_ARG;
   }
 
