@@ -1,25 +1,25 @@
-#include <libpcmseq/clip.h>
+#include <libpcm/clip.h>
 
 #include <stddef.h>
 #include <stdlib.h>
 
-libpcmseq__err_t libpcmseq__stereo_clip__init(libpcmseq__stereo_clip_t *clip,
-                                              size_t frames_num) {
+libpcm__err_t libpcm__stereo_clip__init(libpcm__stereo_clip_t *clip,
+                                        size_t frames_num) {
   if (NULL == clip || 0 == frames_num) {
-    return LIBPCMSEQ__ERR_INVALID_ARG;
+    return LIBPCM__ERR_INVALID_ARG;
   }
 
-  clip->frames = malloc(frames_num * sizeof(libpcmseq__stereo_frame_t));
+  clip->frames = malloc(frames_num * sizeof(libpcm__stereo_frame_t));
   if (NULL == clip->frames) {
-    return LIBPCMSEQ__ERR_NO_MEMORY;
+    return LIBPCM__ERR_NO_MEMORY;
   }
 
   clip->frames_num = frames_num;
 
-  return LIBPCMSEQ__OK;
+  return LIBPCM__OK;
 }
 
-void libpcmseq__stereo_clip__del(libpcmseq__stereo_clip_t *clip) {
+void libpcm__stereo_clip__del(libpcm__stereo_clip_t *clip) {
   if (NULL == clip) {
     return;
   }
@@ -29,19 +29,19 @@ void libpcmseq__stereo_clip__del(libpcmseq__stereo_clip_t *clip) {
   clip->frames_num = 0;
 }
 
-libpcmseq__err_t libpcmseq__stereo_clip__init_square_wave(
-    libpcmseq__stereo_clip_t *clip, libpcmseq__rate_hz_t sample_rate,
-    libpcmseq__amplitude_t amplitude, libpcmseq__rate_hz_t freq_hz) {
-  libpcmseq__err_t err = LIBPCMSEQ__FAILURE;
+libpcm__err_t libpcm__stereo_clip__init_square_wave(
+    libpcm__stereo_clip_t *clip, libpcm__rate_hz_t sample_rate,
+    libpcm__amplitude_t amplitude, libpcm__rate_hz_t freq_hz) {
+  libpcm__err_t err = LIBPCM__FAILURE;
 
   if (NULL == clip) {
-    err = LIBPCMSEQ__ERR_INVALID_ARG;
+    err = LIBPCM__ERR_INVALID_ARG;
     goto cleanup;
   }
 
   const size_t frames_num = sample_rate / freq_hz;
-  err = libpcmseq__stereo_clip__init(clip, frames_num);
-  if (LIBPCMSEQ__OK != err) {
+  err = libpcm__stereo_clip__init(clip, frames_num);
+  if (LIBPCM__OK != err) {
     goto cleanup;
   }
 
@@ -59,11 +59,11 @@ libpcmseq__err_t libpcmseq__stereo_clip__init_square_wave(
     clip->frames[i].right = -amplitude;
   }
 
-  err = LIBPCMSEQ__OK;
+  err = LIBPCM__OK;
 
 cleanup:
-  if (LIBPCMSEQ__OK != err) {
-    libpcmseq__stereo_clip__del(clip);
+  if (LIBPCM__OK != err) {
+    libpcm__stereo_clip__del(clip);
   }
   return err;
 }

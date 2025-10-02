@@ -1,23 +1,23 @@
-#ifndef LIBPCMSEQ_CLIP_H
-#define LIBPCMSEQ_CLIP_H
+#ifndef LIBPCM_CLIP_H
+#define LIBPCM_CLIP_H
 
-#include <libpcmseq/sample.h>
-#include <libpcmseq/types.h>
+#include <libpcm/sample.h>
+#include <libpcm/types.h>
 
 #include <stddef.h>
 
 // A frame is a single sample for each channel - a complete sample for a unique
 // point in time.
 typedef struct {
-  libpcmseq__sample_t left;
-  libpcmseq__sample_t right;
-} libpcmseq__stereo_frame_t;
+  libpcm__sample_t left;
+  libpcm__sample_t right;
+} libpcm__stereo_frame_t;
 
 // A clip is a sequence of frames at a specific sample rate.
 typedef struct {
-  libpcmseq__stereo_frame_t *frames;
+  libpcm__stereo_frame_t *frames;
   size_t frames_num;
-} libpcmseq__stereo_clip_t;
+} libpcm__stereo_clip_t;
 
 /**
  * @brief Initializes a stereo clip. Allocates memory for the frames.
@@ -26,15 +26,15 @@ typedef struct {
  * @param[in] frames_num Number of frames in the clip. Must be greater than 0.
  * @param[in] sample_rate Sample rate of the clip.
  */
-libpcmseq__err_t libpcmseq__stereo_clip__init(libpcmseq__stereo_clip_t *clip,
-                                              size_t frames_num);
+libpcm__err_t libpcm__stereo_clip__init(libpcm__stereo_clip_t *clip,
+                                        size_t frames_num);
 
 /**
  * @brief Deallocates memory used by the clip and resets its fields.
  *
  * @param[in,out] clip Pointer to the clip to delete.
  */
-void libpcmseq__stereo_clip__del(libpcmseq__stereo_clip_t *clip);
+void libpcm__stereo_clip__del(libpcm__stereo_clip_t *clip);
 
 /**
  * @brief Initializes a stereo clip with a square wave.
@@ -46,8 +46,8 @@ void libpcmseq__stereo_clip__del(libpcmseq__stereo_clip_t *clip);
  * @param[in] amplitude Amplitude of the square wave.
  * @param[in] freq_hz Frequency of the square wave in Hz.
  */
-libpcmseq__err_t libpcmseq__stereo_clip__init_square_wave(
-    libpcmseq__stereo_clip_t *clip, libpcmseq__rate_hz_t sample_rate,
-    libpcmseq__amplitude_t amplitude, libpcmseq__rate_hz_t freq_hz);
+libpcm__err_t libpcm__stereo_clip__init_square_wave(
+    libpcm__stereo_clip_t *clip, libpcm__rate_hz_t sample_rate,
+    libpcm__amplitude_t amplitude, libpcm__rate_hz_t freq_hz);
 
-#endif // LIBPCMSEQ_CLIP_H
+#endif // LIBPCM_CLIP_H
