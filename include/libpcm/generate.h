@@ -23,9 +23,6 @@ typedef struct {
 
   /* Buffer to hold generated samples. */
   libpcm__sample_buffer_t buffer;
-
-  /* Current write position in the buffer (in samples, not frames). */
-  size_t position;
 } libpcm__generate_context_t;
 
 libpcm__err_t
